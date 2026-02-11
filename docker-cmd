@@ -1,0 +1,1 @@
+docker run -d --gpus all  -p 8484:8000 -e WHISPER__MODEL=kotoba-tech/kotoba-whisper-v1.0   fedirz/faster-whisper-server:latest-cuda
