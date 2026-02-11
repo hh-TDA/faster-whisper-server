@@ -1,0 +1,4 @@
+docker run -d --gpus all -p 80:8000 \
+  --volume hf-hub-cache:/home/ubuntu/.cache/huggingface/hub \
+  -e WHISPER__MODEL=kotoba-tech/kotoba-whisper-v2.0-faster \
+  ghcr.io/speaches-ai/speaches:latest-cuda
