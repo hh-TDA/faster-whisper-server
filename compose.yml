@@ -1,0 +1,35 @@
+services:
+  faster-whisper-v1:
+    image: fedirz/faster-whisper-server:latest-cuda
+    ports:
+      - "${V1_PORT:-8484}:8000"
+    environment:
+      WHISPER__MODEL: ${V1_MODEL:-kotoba-tech/kotoba-whisper-v1.0}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+  faster-whisper-v2:
+    image: ghcr.io/speaches-ai/speaches:latest-cuda
+    ports:
+      - "${V2_PORT:-80}:8000"
+    volumes:
+      - hf-hub-cache:/home/ubuntu/.cache/huggingface/hub
+    environment:
+      WHISPER__MODEL: ${V2_MODEL:-kotoba-tech/kotoba-whisper-v2.0-faster}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+    restart: unless-stopped
+
+volumes:
+  hf-hub-cache:
